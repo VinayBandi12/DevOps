@@ -1,0 +1,430 @@
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        test.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        test.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+        test.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        test.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ touch ~/.gitignore_global
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git add index.html
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git log
+commit 20ae13f13f2991e0e9feb4c443153f6fc1a894da (HEAD -> master)
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:33:47 2023 +0530
+
+    Revert "Second Commit"
+    Modified second commit
+
+commit 0f1ac434659a65af563bdc84ad218300eede821e
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:32:50 2023 +0530
+
+    Second Commit
+
+commit ede0b8d591723595321d9c4f52f016e0a5d07b37
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:13:49 2023 +0530
+
+    First Commit
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git commit -m "Third Commit"
+[master 4b32b5d] Third Commit
+ Committer: Bandi <vinay-kumar.bandi@capgemini.com>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+)
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git log
+commit 4b32b5daa03ac844eca8579c33ef6f1c355061ff (HEAD -> master)
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Tue Oct 3 11:06:38 2023 +0530
+
+    Third Commit
+
+commit 20ae13f13f2991e0e9feb4c443153f6fc1a894da
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:33:47 2023 +0530
+
+    Revert "Second Commit"
+    Modified second commit
+
+commit 0f1ac434659a65af563bdc84ad218300eede821e
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:32:50 2023 +0530
+
+    Second Commit
+
+commit ede0b8d591723595321d9c4f52f016e0a5d07b37
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:13:49 2023 +0530
+
+    First Commit
+ ESCOD
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Tue Oct 3 11:06:38 2023 +0530
+
+    Third Commit
+
+commit 20ae13f13f2991e0e9feb4c443153f6fc1a894da
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:33:47 2023 +0530
+
+    Revert "Second Commit"
+    Modified second commit
+
+commit 0f1ac434659a65af563bdc84ad218300eede821e
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:32:50 2023 +0530
+
+    Second Commit
+
+commit ede0b8d591723595321d9c4f52f016e0a5d07b37
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:13:49 2023 +0530
+
+    First Commit
+ ESCOD
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Tue Oct 3 11:06:38 2023 +0530
+
+    Third Commit
+
+commit 20ae13f13f2991e0e9feb4c443153f6fc1a894da
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:33:47 2023 +0530
+
+    Revert "Second Commit"
+    Modified second commit
+
+commit 0f1ac434659a65af563bdc84ad218300eede821e
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:32:50 2023 +0530
+
+    Second Commit
+
+commit ede0b8d591723595321d9c4f52f016e0a5d07b37
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:13:49 2023 +0530
+
+    First Commit
+(END)
+
+
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git checkout index.html
+Updated 1 path from the index
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+no changes added to commit (use "git add" and/or "git commit -a")
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git add index.html
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git restore --staged index.html
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git config --global alias.my-add add
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git my-add
+Nothing specified, nothing added.
+hint: Maybe you wanted to say 'git add .'?
+hint: Turn this message off by running
+hint: "git config advice.addEmptyPathspec false"
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git my-add index.html
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git commit -m "Fourth Commit"
+[master 75c09f1] Fourth Commit
+ Committer: Bandi <vinay-kumar.bandi@capgemini.com>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git log
+commit 75c09f1438d40623a8b6e11920f2d1ce8d3b16cd (HEAD -> master)
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Tue Oct 3 11:19:43 2023 +0530
+
+    Fourth Commit
+
+commit 4b32b5daa03ac844eca8579c33ef6f1c355061ff
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Tue Oct 3 11:06:38 2023 +0530
+
+    Third Commit
+
+commit 20ae13f13f2991e0e9feb4c443153f6fc1a894da
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:33:47 2023 +0530
+
+    Revert "Second Commit"
+    Modified second commit
+
+commit 0f1ac434659a65af563bdc84ad218300eede821e
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:32:50 2023 +0530
+
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git revert 75c09f1
+[master 74296ff] Revert "Fourth Commit"
+ Committer: Bandi <vinay-kumar.bandi@capgemini.com>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$ git log
+commit 74296ffa47fd5a5cb73d6bf9911edcfbd8bdb1b4 (HEAD -> master)
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Tue Oct 3 11:20:51 2023 +0530
+
+    Revert "Fourth Commit"
+
+    This reverts commit 75c09f1438d40623a8b6e11920f2d1ce8d3b16cd.
+
+commit 75c09f1438d40623a8b6e11920f2d1ce8d3b16cd
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Tue Oct 3 11:19:43 2023 +0530
+
+    Fourth Commit
+
+commit 4b32b5daa03ac844eca8579c33ef6f1c355061ff
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Tue Oct 3 11:06:38 2023 +0530
+
+    Third Commit
+
+commit 20ae13f13f2991e0e9feb4c443153f6fc1a894da
+Author: Bandi <vinay-kumar.bandi@capgemini.com>
+Date:   Wed Sep 27 15:33:47 2023 +0530
+
+vinbandi@LIN22003911 MINGW64 ~/Git_Project (master)
+$
