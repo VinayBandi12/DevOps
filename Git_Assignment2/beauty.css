@@ -1,0 +1,79 @@
+
+.emp-container {
+  width: 100%;
+}
+.emp-header {
+  font-size: 24px;
+  font-family: "GE Inspira Sans", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  color: #0072cc;
+}
+.title-size {
+  font-size: 1.2rem;
+}
+::v-deep .mytable .v-data-table__wrapper {
+  background-color: #f0f0f0;
+}
+::v-deep .mytable thead th {
+  border-left: 1px solid #c3c3c3;
+  border-right: 1px solid #c3c3c3;
+}
+
+::v-deep .mytable td {
+  border-left: 1px solid #c3c3c3;
+  border-right: 1px solid #c3c3c3;
+}
+::v-deep .mytable tr:last-child td {
+  border-bottom: 1px solid #c3c3c3;
+}
+::v-deep
+  .theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > thead
+  > tr:last-child
+  > th {
+  background-color: #0072c3 !important;
+  border-bottom: thin solid rgba(0, 0, 0, 0.12) !important;
+  color: #b8def1 !important;
+}
+
+/* ::v-deep .table-label {
+  margin-bottom: 0px !important;
+  font-weight: bold;
+  font-size: small;
+  font-family: ge-inspira, "Avenir", Helvetica, Arial, sans-serif;
+  color: #949292;
+} */
+/* ::v-deep .custom-subheader {
+  font-style: italic;
+  font-size: medium;
+  color: #949292;
+  background-color: white;
+  padding: 15px;
+} */
+/* ::v-deep .custom-title {
+  font-size: 17px !important;
+  font-weight: 300 !important;
+} */
+
+/* ::v-deep .v-card__text {
+  margin-top: 10%;
+  margin-left: 35%;
+} */
+/* ::v-deep .shiftCard {
+  background-color: rgb(72 16 123 / 91%);
+  color: rgb(235, 230, 230);
+} */
+/* ::v-deep .v-carousel__controls {
+  background: rgb(89 38 135 / 65%);
+} */
+/* ::v-deep div.v-responsive__content {
+  background-color: #420f870f !important;
+} */
+
+/* ::v-deep .v-btn:not(.v-btn--round).v-size--default {
+  width: 10px !important;
+  min-width: 10px !important;
+} */
+
