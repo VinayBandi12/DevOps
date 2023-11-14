@@ -1,0 +1,81 @@
+Definition - Docker is an open-source containerization platform. 
+             It is used to automate the deployment of any application, 
+             using lightweight, portable containers.
+
+Docker Client - Performs Docker build pull and run operations to open up communication with the Docker Host. 
+                The Docker command then employs Docker API to call any queries to run.
+
+Docker Host - Contains Docker daemon, containers, and associated images. 
+              The Docker daemon establishes a connection with the Registry. The stored images are the type of
+              metadata dedicated to containerized applications.
+
+Registry - This is where Docker images are stored. There are two of them, 
+           a public registry and a private one. Docker Hub and Docker Cloud are two public registries 
+           available for use by anyone.
+
+------------------------------------------------------------------------------------------------------
+
+Docker Commands
+
+docker run <image_name>
+
+docker ps
+
+docker ps -a
+
+docker stop <container_id>/<container_name>
+
+docker rm <container_id>/<container_name>
+
+docker images
+
+docker rmi <image_name>
+
+docker pull <image_name>
+
+docker run <image_name>:<tag>
+
+----------------------------------------------------------------------------------------------------
+
+Docker Registry/ Docker Hub
+
+Public registry to host docker images
+
+----------------------------------------------------------------------------------------------------
+
+Dockerfile
+
+#This is a sample Image 
+FROM ubuntu 
+MAINTAINER demousr@gmail.com 
+
+RUN apt-get update 
+RUN apt-get install –y nginx 
+CMD [“echo”,”Image created”]
+
+----------------------------------------------------------------------------------------------------
+
+Docker Volumes
+
+docker volume create data_volume
+docker run -v data_volume:/var/lib/mysql mysql
+
+docker run -v data_volume2:/var/lib/mysql mysql
+
+docker run -v /data/mysql:/var/lib/mysql mysql
+
+docker run --mount type=bind, source=/data/mysql, target=/var/lib/mysql mysql
+
+---------------------------------------------------------------------------------------------------
+
+Docker Swarm
+
+Swarm Manager and worker nodes
+
+docker swarm init and docker swarm join --token <token>
+
+docker run my-web-server
+
+docker service create --replicas=3 my-web-server
+
+docker service create --replicas=3 -p 8080:80 my-web-server
