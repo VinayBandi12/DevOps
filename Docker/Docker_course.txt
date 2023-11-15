@@ -79,3 +79,14 @@ docker run my-web-server
 docker service create --replicas=3 my-web-server
 
 docker service create --replicas=3 -p 8080:80 my-web-server
+
+----------------------------------------------------------------------------------------------------
+
+Running Docker on ec2 instance
+
+sudo yum update -y
+sudo yum install docker -y
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+grep docker /etc/group
+newgrp docker
