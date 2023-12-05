@@ -1,0 +1,233 @@
+K8s Architecture
+
+API Server
+etcd
+scheduler
+controller
+container runtime (Docker)
+kubelet
+
+
+YAML - 1
+Update the food.yml file to add a Vegetable - Carrot.
+
+Fruit: Apple
+Drink: Water
+Dessert: Cake
+Vegetable: Carrot
+
+
+
+YAML - 2
+Update the food.yml file to add a list of Vegetables - Carrot, Tomato, Cucumber
+
+Fruits:
+  - Apple
+  - Banana
+  - Orange
+
+Vegetables:
+  - Carrot
+  - Tomato
+  - Cucumber
+
+
+
+YAML - 3
+We have updated the food.yml file with nutrition information for Fruits. 
+Similarly update the nutrition information for Vegetables.
+
+Fruits:
+  - Apple:
+        Calories: 95
+        Fat: 0.3
+        Carbs: 25
+  - Banana:
+      Calories: 105
+      Fat: 0.4
+      Carbs: 27
+  - Orange:
+        Calories: 45
+        Fat: 0.1
+        Carbs: 11
+        
+Vegetables:
+  - Carrot:
+      Calories: 25
+      Fat: 0.1
+      Carbs: 6
+  - Tomato:
+      Calories: 22
+      Fat: 0.2
+      Carbs: 4.8
+  - Cucumber:
+      Calories: 8
+      Fat: 0.1
+      Carbs: 1.9
+
+
+
+YAML - 4
+Jacob is 30 year old Male working as a Systems Engineer at a firm. Represent Jacob's information (Name, Sex, Age, Title) 
+in YAML format. Create a dictionary named Employee and define properties under it.
+
+
+Employee:
+    Name: Jacob
+    Sex: Male
+    Age: 30
+    Title: Systems Engineer
+
+
+
+YAML - 5
+Update the YAML file to represent the Projects assigned to Jacob. 
+Remember Jacob works on Multiple projects - Automation and Support. So remember to use a list.
+
+
+Employee:
+    Name: Jacob
+    Sex: Male
+    Age: 30
+    Title: Systems Engineer
+    Projects: 
+        - Automation
+        - Support
+
+
+
+YAML - 6
+Update the YAML file to include Jacob's pay slips. Add a new property "Payslips" and create a list
+of pay slip details (Use list of dictionaries). Each payslip detail contains Month and Wage.
+
+
+Employee:
+  Name: Jacob
+  Sex: Male
+  Age: 30
+  Title: Systems Engineer
+  Projects:
+    - Automation
+    - Support
+  Payslips:
+    - Month: June
+      Wage: 4000
+    - Month: July
+      Wage: 4500
+    - Month: August
+      Wage: 4000
+
+--------------------------------------------------------------------------------------------------------------
+
+Pods - 1
+Introduction: Let us start simple! Given a pod-definition.yml file. 
+We are only getting started with it. I have added two root level properties - apiVersion and kind.
+
+Instruction: Add the missing two properties - metadata and spec
+
+apiVersion:
+kind:
+metadata:
+spec:
+
+
+
+Pods - 7
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+
+
+
+Pods - 8
+Introduction: Perfect! You have successfully created a Kubernetes-Definition file. Let us try it one more time, this time all on your own! 
+
+Instruction: Create a Kubernetes Pod definition file using values below: 
+
+Name: postgres 
+Labels: tier => db-tier
+Container name: postgres
+Image: postgres
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgres
+  labels:
+    tier: db-tier
+spec:
+  containers:
+    - name: postgres
+      image: postgres
+
+
+
+Pods - 9
+Introduction: Postgres Docker image requires an environment variable to be set for password.  
+
+Instruction: Set an environment variable for the docker container. POSTGRES_PASSWORD with a value 
+mysecretpassword. I know we haven't discussed this in the lecture, but it is easy. To pass in an environment 
+variable add a new property 'env' to the container object. It is a sibling of image and name. env is an 
+array/list. So add a new item under it. The item will have properties name and value. name should be the name 
+of the environment variable - POSTGRES_PASSWORD. And value should be the password - mysecretpassword
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgres
+  labels:
+    tier: db-tier
+spec:
+  containers:
+    - name: postgres
+      image: postgres
+      env:
+        - name: POSTGRES_PASSWORD
+          value: mysecretpassword
+
+--------------------------------------------------------------------------------------------------------------
+
+ReplicaSet - 7
+Introduction: Let us now link the pods to the ReplicaSet by updating selectors. 
+
+Instruction: Add a property "matchLabels" under selector and copy the labels defined in the
+pod-definition under it.
+
+
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: frontend
+  labels:
+    app: mywebsite
+    tier: frontend
+spec:
+  replicas: 4
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+  selector:
+    matchLabels:
+      app: myapp
+
+
+
+
+
+

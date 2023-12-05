@@ -1,0 +1,13 @@
+apiversion: v1
+kind: Pod/Service/ReplicaSet/Deployment
+metadata:
+    name: myapp-pod
+    labels:
+        app: myapp
+        type: frontend
+spec:
+    containers:
+        - name: nginx-container
+          image: nginx
+
+# kubectl create -f pod-definition.yml

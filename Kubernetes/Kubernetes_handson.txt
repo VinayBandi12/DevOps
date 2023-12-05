@@ -1,0 +1,449 @@
+controlplane ~ ➜  kubectl get nodes
+NAME           STATUS   ROLES                  AGE     VERSION
+controlplane   Ready    control-plane,master   8m51s   v1.27.1+k3s1
+
+controlplane ~ ➜  kube -version
+-bash: kube: command not found
+
+controlplane ~ ✖ kubectl version
+WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.  Use --output=yaml|json to get the full version.
+Client Version: version.Info{Major:"1", Minor:"27", GitVersion:"v1.27.1+k3s1", GitCommit:"bc5b42c27908ab430101eff0db0a0b22f870bd7a", GitTreeState:"clean", BuildDate:"2023-04-27T21:48:42Z", GoVersion:"go1.20.3", Compiler:"gc", Platform:"linux/amd64"}
+Kustomize Version: v5.0.1
+Server Version: version.Info{Major:"1", Minor:"27", GitVersion:"v1.27.1+k3s1", GitCommit:"bc5b42c27908ab430101eff0db0a0b22f870bd7a", GitTreeState:"clean", BuildDate:"2023-04-27T21:48:42Z", GoVersion:"go1.20.3", Compiler:"gc", Platform:"linux/amd64"}
+
+controlplane ~ ➜  kubectl version --short
+Flag --short has been deprecated, and will be removed in the future. The --short output will become the default.
+Client Version: v1.27.1+k3s1
+Kustomize Version: v5.0.1
+Server Version: v1.27.1+k3s1
+
+controlplane ~ ➜  kubectl get nodes -o wide
+NAME           STATUS   ROLES                  AGE   VERSION        INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION   CONTAINER-RUNTIME
+controlplane   Ready    control-plane,master   11m   v1.27.1+k3s1   192.15.148.9   <none>        Alpine Linux v3.16   5.4.0-1106-gcp   containerd://1.6.19-k3s1
+
+
+--------------------------------------------------------------------------------------------------------
+Pods
+
+controlplane ~ ➜  kubectl get pods
+No resources found in default namespace.
+
+controlplane ~ ➜  kubectl run nginx --image=nginx
+pod/nginx created
+
+controlplane ~ ➜  kubectl get pods
+NAME            READY   STATUS    RESTARTS   AGE
+nginx           1/1     Running   0          37s
+newpods-n5wms   1/1     Running   0          28s
+newpods-zgkws   1/1     Running   0          28s
+newpods-5jn52   1/1     Running   0          28s
+
+controlplane ~ ➜  kubectl describe pod nginx
+Name:             nginx
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             controlplane/192.15.143.8
+Start Time:       Tue, 05 Dec 2023 08:49:28 +0000
+Labels:           run=nginx
+Annotations:      <none>
+Status:           Running
+IP:               10.42.0.9
+IPs:
+  IP:  10.42.0.9
+Containers:
+  nginx:
+    Container ID:   containerd://6fbaf22d83294a6ffbd36906255c48eef1f9977c9939a57668f7d0043d94ca82
+    Image:          nginx
+    Image ID:       docker.io/library/nginx@sha256:10d1f5b58f74683ad34eb29287e07dab1e90f10af243f151bb50aa5dbb4d62ee
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Tue, 05 Dec 2023 08:49:35 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-rdnbz (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-rdnbz:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  75s   default-scheduler  Successfully assigned default/nginx to controlplane
+  Normal  Pulling    75s   kubelet            Pulling image "nginx"
+  Normal  Pulled     69s   kubelet            Successfully pulled image "nginx" in 6.068457567s (6.068475803s including waiting)
+  Normal  Created    69s   kubelet            Created container nginx
+  Normal  Started    69s   kubelet            Started container nginx
+
+controlplane ~ ➜  kubectl describe pod newpods-n5wms
+Name:             newpods-n5wms
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             controlplane/192.15.143.8
+Start Time:       Tue, 05 Dec 2023 08:49:38 +0000
+Labels:           tier=busybox
+Annotations:      <none>
+Status:           Running
+IP:               10.42.0.12
+IPs:
+  IP:           10.42.0.12
+Controlled By:  ReplicaSet/newpods
+Containers:
+  busybox:
+    Container ID:  containerd://72240abbd7a2e13fbbf1be663cca3eae5aa599e4aba33695b35dac100df56e7b
+    Image:         busybox
+    Image ID:      docker.io/library/busybox@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sleep
+      1000
+    State:          Running
+      Started:      Tue, 05 Dec 2023 08:49:39 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-ls2x8 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-ls2x8:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  2m4s  default-scheduler  Successfully assigned default/newpods-n5wms to controlplane
+  Normal  Pulling    2m4s  kubelet            Pulling image "busybox"
+  Normal  Pulled     2m3s  kubelet            Successfully pulled image "busybox" in 388.574547ms (388.593052ms including waiting)
+  Normal  Created    2m3s  kubelet            Created container busybox
+  Normal  Started    2m3s  kubelet            Started container busybox
+
+controlplane ~ ➜  kubectl describe pod webapp
+Name:             webapp
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             controlplane/192.15.143.8
+Start Time:       Tue, 05 Dec 2023 08:52:14 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Pending
+IP:               10.42.0.13
+IPs:
+  IP:  10.42.0.13
+Containers:
+  nginx:
+    Container ID:   containerd://771292db5410e6fd726896fdd6df2d90631073138407b8c4d405017978916b8b
+    Image:          nginx
+    Image ID:       docker.io/library/nginx@sha256:10d1f5b58f74683ad34eb29287e07dab1e90f10af243f151bb50aa5dbb4d62ee
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Tue, 05 Dec 2023 08:52:15 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-pz6j4 (ro)
+  agentx:
+    Container ID:   
+    Image:          agentx
+    Image ID:       
+    Port:           <none>
+    Host Port:      <none>
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-pz6j4 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-pz6j4:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  26s                default-scheduler  Successfully assigned default/webapp to controlplane
+  Normal   Pulling    26s                kubelet            Pulling image "nginx"
+  Normal   Pulled     25s                kubelet            Successfully pulled image "nginx" in 163.345556ms (163.360194ms including waiting)
+  Normal   Created    25s                kubelet            Created container nginx
+  Normal   Started    25s                kubelet            Started container nginx
+  Normal   BackOff    24s (x2 over 25s)  kubelet            Back-off pulling image "agentx"
+  Warning  Failed     24s (x2 over 25s)  kubelet            Error: ImagePullBackOff
+  Normal   Pulling    11s (x2 over 25s)  kubelet            Pulling image "agentx"
+  Warning  Failed     11s (x2 over 25s)  kubelet            Failed to pull image "agentx": rpc error: code = Unknown desc = failed to pull and unpack image "docker.io/library/agentx:latest": failed to resolve reference "docker.io/library/agentx:latest": pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
+  Warning  Failed     11s (x2 over 25s)  kubelet            Error: ErrImagePull
+
+controlplane ~ ➜  kubectl get pods
+NAME            READY   STATUS         RESTARTS   AGE
+nginx           1/1     Running        0          4m39s
+newpods-n5wms   1/1     Running        0          4m30s
+newpods-zgkws   1/1     Running        0          4m30s
+newpods-5jn52   1/1     Running        0          4m30s
+webapp          1/2     ErrImagePull   0          113s
+
+controlplane ~ ➜  kubectl get pods
+NAME            READY   STATUS             RESTARTS   AGE
+nginx           1/1     Running            0          4m51s
+newpods-n5wms   1/1     Running            0          4m42s
+newpods-zgkws   1/1     Running            0          4m42s
+newpods-5jn52   1/1     Running            0          4m42s
+webapp          1/2     ImagePullBackOff   0          2m5s
+
+controlplane ~ ➜  kubectl get pods
+NAME            READY   STATUS             RESTARTS   AGE
+nginx           1/1     Running            0          4m54s
+newpods-n5wms   1/1     Running            0          4m45s
+newpods-zgkws   1/1     Running            0          4m45s
+newpods-5jn52   1/1     Running            0          4m45s
+webapp          1/2     ImagePullBackOff   0          2m8s
+
+controlplane ~ ➜  kubectl get pods
+NAME            READY   STATUS             RESTARTS   AGE
+nginx           1/1     Running            0          5m12s
+newpods-n5wms   1/1     Running            0          5m3s
+newpods-zgkws   1/1     Running            0          5m3s
+newpods-5jn52   1/1     Running            0          5m3s
+webapp          1/2     ImagePullBackOff   0          2m26s
+
+controlplane ~ ➜  kubectl get pods
+NAME            READY   STATUS             RESTARTS   AGE
+nginx           1/1     Running            0          5m37s
+newpods-n5wms   1/1     Running            0          5m28s
+newpods-zgkws   1/1     Running            0          5m28s
+newpods-5jn52   1/1     Running            0          5m28s
+webapp          1/2     ImagePullBackOff   0          2m51s
+
+controlplane ~ ➜  kubectl describe pod webapp
+Name:             webapp
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             controlplane/192.15.143.8
+Start Time:       Tue, 05 Dec 2023 08:52:14 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Pending
+IP:               10.42.0.13
+IPs:
+  IP:  10.42.0.13
+Containers:
+  nginx:
+    Container ID:   containerd://771292db5410e6fd726896fdd6df2d90631073138407b8c4d405017978916b8b
+    Image:          nginx
+    Image ID:       docker.io/library/nginx@sha256:10d1f5b58f74683ad34eb29287e07dab1e90f10af243f151bb50aa5dbb4d62ee
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Tue, 05 Dec 2023 08:52:15 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-pz6j4 (ro)
+  agentx:
+    Container ID:   
+    Image:          agentx
+    Image ID:       
+    Port:           <none>
+    Host Port:      <none>
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-pz6j4 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-pz6j4:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                    From               Message
+  ----     ------     ----                   ----               -------
+  Normal   Scheduled  2m58s                  default-scheduler  Successfully assigned default/webapp to controlplane
+  Normal   Pulling    2m58s                  kubelet            Pulling image "nginx"
+  Normal   Pulled     2m57s                  kubelet            Successfully pulled image "nginx" in 163.345556ms (163.360194ms including waiting)
+  Normal   Created    2m57s                  kubelet            Created container nginx
+  Normal   Started    2m57s                  kubelet            Started container nginx
+  Normal   Pulling    2m18s (x3 over 2m57s)  kubelet            Pulling image "agentx"
+  Warning  Failed     2m18s (x3 over 2m57s)  kubelet            Failed to pull image "agentx": rpc error: code = Unknown desc = failed to pull and unpack image "docker.io/library/agentx:latest": failed to resolve reference "docker.io/library/agentx:latest": pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
+  Warning  Failed     2m18s (x3 over 2m57s)  kubelet            Error: ErrImagePull
+  Normal   BackOff    102s (x6 over 2m57s)   kubelet            Back-off pulling image "agentx"
+  Warning  Failed     102s (x6 over 2m57s)   kubelet            Error: ImagePullBackOff
+
+controlplane ~ ➜  kubectl get pods
+NAME            READY   STATUS             RESTARTS   AGE
+nginx           1/1     Running            0          6m54s
+newpods-n5wms   1/1     Running            0          6m45s
+newpods-zgkws   1/1     Running            0          6m45s
+newpods-5jn52   1/1     Running            0          6m45s
+webapp          1/2     ImagePullBackOff   0          4m8s
+
+controlplane ~ ➜  kubectl delete pod webapp
+pod "webapp" deleted
+
+controlplane ~ ➜  kubectl run redis --image=redis123
+pod/redis created
+
+controlplane ~ ➜  kubectl get pods
+NAME            READY   STATUS         RESTARTS   AGE
+nginx           1/1     Running        0          8m54s
+newpods-n5wms   1/1     Running        0          8m45s
+newpods-zgkws   1/1     Running        0          8m45s
+newpods-5jn52   1/1     Running        0          8m45s
+redis           0/1     ErrImagePull   0          54s
+
+controlplane ~ ➜  vim pod-definition.yml
+
+controlplane ~ ➜  kubectl create pod-definition.yml
+Error: must specify one of -f and -k
+
+error: unknown command "pod-definition.yml"
+See 'kubectl create -h' for help and examples
+
+controlplane ~ ✖ kubectl apply -f  pod-definition.yml
+error: error parsing pod-definition.yml: error converting YAML to JSON: yaml: line 8: mapping values are not allowed in this context
+
+controlplane ~ ✖ cat pod-definition.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+spec:
+  containers:
+    -name: redis
+     image: redis
+
+controlplane ~ ➜  vim pod-definition.yaml
+
+controlplane ~ ➜  kubectl apply -f  pod-definition.yaml
+error: error parsing pod-definition.yaml: error converting YAML to JSON: yaml: line 8: mapping values are not allowed in this context
+
+controlplane ~ ✖ kubectl run redis --image=redis
+Error from server (AlreadyExists): pods "redis" already exists
+
+controlplane ~ ✖ kubectl run redis1 --image=redis
+pod/redis1 created
+
+controlplane ~ ➜  kubectl edit pod redis
+pod/redis edited
+
+controlplane ~ ➜  kubectl get pods
+NAME            READY   STATUS    RESTARTS   AGE
+nginx           1/1     Running   0          14m
+newpods-n5wms   1/1     Running   0          13m
+newpods-zgkws   1/1     Running   0          13m
+newpods-5jn52   1/1     Running   0          13m
+redis1          1/1     Running   0          71s
+redis           1/1     Running   0          6m8s
+
+-------------------------------------------------------------------------------------------------------------
+
+ReplicaSet
+
+controlplane ~ ➜  kubectl delete replicaset replicaset-1
+replicaset.apps "replicaset-1" deleted
+
+controlplane ~ ➜  kubectl delete replicaset replicaset-2
+replicaset.apps "replicaset-2" deleted
+
+controlplane ~ ➜  kubectl edit replicaset new-replica-set
+replicaset.apps/new-replica-set edited
+
+controlplane ~ ➜  ls
+replicaset-definition-1.yaml  sample.yaml
+replicaset-definition-2.yaml
+
+controlplane ~ ➜  kubectl get pods
+NAME                    READY   STATUS             RESTARTS   AGE
+new-replica-set-wzhvl   0/1     ImagePullBackOff   0          18m
+new-replica-set-t2nxb   0/1     ImagePullBackOff   0          22m
+new-replica-set-92sbd   0/1     ImagePullBackOff   0          22m
+new-replica-set-mtnc6   0/1     ImagePullBackOff   0          22m
+
+controlplane ~ ➜  kubectl delete pod ^[[200~new-replica-set-wzhvl~
+Error from server (NotFound): pods "\x1b[200~new-replica-set-wzhvl~" not found
+
+controlplane ~ ✖ kubectl delete pod new-replica-set-wzhvl
+pod "new-replica-set-wzhvl" deleted
+
+controlplane ~ ➜  kubectl delete pod new-replica-set-t2nxb
+pod "new-replica-set-t2nxb" deleted
+
+controlplane ~ ➜  kubectl delete pod new-replica-set-92sbd
+pod "new-replica-set-92sbd" deleted
+
+controlplane ~ ➜  kubectl delete pod new-replica-set-mtnc6
+pod "new-replica-set-mtnc6" deleted
+
+controlplane ~ ➜  kubectl get pods
+NAME                    READY   STATUS    RESTARTS   AGE
+new-replica-set-sjhtm   1/1     Running   0          38s
+new-replica-set-qwjwb   1/1     Running   0          25s
+new-replica-set-rj4x6   1/1     Running   0          16s
+new-replica-set-mggbg   1/1     Running   0          5s
+
+controlplane ~ ➜  kubectl scale rs new-replica-set --replicas=5
+replicaset.apps/new-replica-set scaled
+
+controlplane ~ ➜  kubectl scale rs new-replica-set --replicas=2
+replicaset.apps/new-replica-set scaled
