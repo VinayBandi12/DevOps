@@ -447,3 +447,421 @@ replicaset.apps/new-replica-set scaled
 
 controlplane ~ ➜  kubectl scale rs new-replica-set --replicas=2
 replicaset.apps/new-replica-set scaled
+
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+controlplane ~ ➜  kubectl get pods
+NAME                                   READY   STATUS             RESTARTS   AGE
+frontend-deployment-577494fd6f-sx7d5   0/1     ImagePullBackOff   0          49s
+frontend-deployment-577494fd6f-x7mhg   0/1     ImagePullBackOff   0          49s
+frontend-deployment-577494fd6f-pd59q   0/1     ImagePullBackOff   0          49s
+frontend-deployment-577494fd6f-4njwr   0/1     ImagePullBackOff   0          49s
+
+controlplane ~ ➜  kubectl get deployments
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+frontend-deployment   0/4     4            0           54s
+
+controlplane ~ ➜  kubectl get replicasets
+NAME                             DESIRED   CURRENT   READY   AGE
+frontend-deployment-577494fd6f   4         4         0       68s
+
+controlplane ~ ➜  kubectl get pods
+NAME                                   READY   STATUS             RESTARTS   AGE
+frontend-deployment-577494fd6f-sx7d5   0/1     ImagePullBackOff   0          87s
+frontend-deployment-577494fd6f-x7mhg   0/1     ImagePullBackOff   0          87s
+frontend-deployment-577494fd6f-pd59q   0/1     ImagePullBackOff   0          87s
+frontend-deployment-577494fd6f-4njwr   0/1     ImagePullBackOff   0          87s
+
+controlplane ~ ➜  kubectl describe frontend-deployment-577494fd6f-sx7d5
+error: the server doesn't have a resource type "frontend-deployment-577494fd6f-sx7d5"
+
+controlplane ~ ✖ kubectl describe pod frontend-deployment-577494fd6f-sx7d5
+Name:             frontend-deployment-577494fd6f-sx7d5
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             controlplane/192.13.5.9
+Start Time:       Wed, 06 Dec 2023 07:16:32 +0000
+Labels:           name=busybox-pod
+                  pod-template-hash=577494fd6f
+Annotations:      <none>
+Status:           Pending
+IP:               10.42.0.10
+IPs:
+  IP:           10.42.0.10
+Controlled By:  ReplicaSet/frontend-deployment-577494fd6f
+Containers:
+  busybox-container:
+    Container ID:  
+    Image:         busybox888
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo Hello Kubernetes! && sleep 3600
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-ng7b8 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-ng7b8:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                  From               Message
+  ----     ------     ----                 ----               -------
+  Normal   Scheduled  2m20s                default-scheduler  Successfully assigned default/frontend-deployment-577494fd6f-sx7d5 to controlplane
+  Normal   Pulling    50s (x4 over 2m19s)  kubelet            Pulling image "busybox888"
+  Warning  Failed     49s (x4 over 2m19s)  kubelet            Failed to pull image "busybox888": rpc error: code = Unknown desc = failed to pull and unpack image "docker.io/library/busybox888:latest": failed to resolve reference "docker.io/library/busybox888:latest": pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
+  Warning  Failed     49s (x4 over 2m19s)  kubelet            Error: ErrImagePull
+  Warning  Failed     36s (x6 over 2m18s)  kubelet            Error: ImagePullBackOff
+  Normal   BackOff    21s (x7 over 2m18s)  kubelet            Back-off pulling image "busybox888"
+
+controlplane ~ ➜  kubectl create -f deployment-definition.yaml
+error: the path "deployment-definition.yaml" does not exist
+
+controlplane ~ ✖ ls
+deployment-definition-1.yaml  sample.yaml
+
+controlplane ~ ➜  vim deployment-definition-1.yaml
+
+controlplane ~ ➜  kubectl create -f deployment-definition-1.yaml
+Error from server (BadRequest): error when creating "deployment-definition-1.yaml": deployment in version "v1" cannot be handled as a Deployment: no kind "deployment" is registered for version "apps/v1" in scheme "k8s.io/apimachinery@v1.27.1-k3s1/pkg/runtime/scheme.go:100"
+
+controlplane ~ ✖ vim deployment-definition-1.yaml
+
+controlplane ~ ➜  kubectl create -f deployment-definition-1.yaml
+deployment.apps/deployment-1 created
+
+controlplane ~ ➜  ls
+deployment-definition-1.yaml  sample.yaml
+
+controlplane ~ ➜  touch deployment-definition-2.yaml
+
+controlplane ~ ➜  ls
+deployment-definition-1.yaml  sample.yaml
+deployment-definition-2.yaml
+
+controlplane ~ ➜  vim deployment-definition-2.yaml
+
+controlplane ~ ➜  kubectl create -f deployment-definition-2.yaml
+deployment.apps/httpd-frontend created
+
+
+
+-------------------------------------------------------------------------------------------------------------
+
+
+
+controlplane ~ ➜  kubectl get pods
+NAME                        READY   STATUS    RESTARTS   AGE
+frontend-58f7796bbb-8tvq7   1/1     Running   0          50s
+frontend-58f7796bbb-4sclj   1/1     Running   0          50s
+frontend-58f7796bbb-rq8nm   1/1     Running   0          50s
+frontend-58f7796bbb-zzlqk   1/1     Running   0          50s
+
+controlplane ~ ➜  kubectl get deployemnts
+^[[A^[[Aerror: the server doesn't have a resource type "deployemnts"
+
+controlplane ~ ✖ kubectl get deployments
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+frontend   4/4     4            4           79s
+
+controlplane ~ ➜  kubectl get replicasets
+NAME                  DESIRED   CURRENT   READY   AGE
+frontend-58f7796bbb   4         4         4       87s
+
+controlplane ~ ➜  ls
+curl-pod.yaml  curl-test.sh
+
+controlplane ~ ➜  curl-test.sh
+-bash: curl-test.sh: command not found
+
+controlplane ~ ✖ sudo curl-test.sh
+sudo: curl-test.sh: command not found
+
+controlplane ~ ✖ ./curl-test.sh
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+
+controlplane ~ ➜  kubectl get deployments
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+frontend   4/4     4            4           4m54s
+
+controlplane ~ ➜  kubectl describe deployment frontend
+Name:                   frontend
+Namespace:              default
+CreationTimestamp:      Wed, 06 Dec 2023 08:46:15 +0000
+Labels:                 <none>
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               name=webapp
+Replicas:               4 desired | 4 updated | 4 total | 4 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        20
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  name=webapp
+  Containers:
+   simple-webapp:
+    Image:        kodekloud/webapp-color:v1
+    Port:         8080/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   frontend-58f7796bbb (4/4 replicas created)
+Events:
+  Type    Reason             Age    From                   Message
+  ----    ------             ----   ----                   -------
+  Normal  ScalingReplicaSet  5m21s  deployment-controller  Scaled up replica set frontend-58f7796bbb to 4
+
+controlplane ~ ➜  kubectl edit deployment frontend
+deployment.apps/frontend edited
+
+controlplane ~ ➜  ./curl-test.sh
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+
+controlplane ~ ➜  kubectl edit deployment frontend
+deployment.apps/frontend edited
+
+controlplane ~ ➜  kubectl edit deployment frontend
+deployment.apps/frontend edited
+
+controlplane ~ ➜  ./curl.sh
+-bash: ./curl.sh: No such file or directory
+
+controlplane ~ ✖ ./curl-test.sh
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
+
+Hello, Application Version: v2 ; Color: green OK
