@@ -420,9 +420,6 @@ new-replica-set-t2nxb   0/1     ImagePullBackOff   0          22m
 new-replica-set-92sbd   0/1     ImagePullBackOff   0          22m
 new-replica-set-mtnc6   0/1     ImagePullBackOff   0          22m
 
-controlplane ~ ➜  kubectl delete pod ^[[200~new-replica-set-wzhvl~
-Error from server (NotFound): pods "\x1b[200~new-replica-set-wzhvl~" not found
-
 controlplane ~ ✖ kubectl delete pod new-replica-set-wzhvl
 pod "new-replica-set-wzhvl" deleted
 
@@ -583,7 +580,7 @@ frontend-58f7796bbb-rq8nm   1/1     Running   0          50s
 frontend-58f7796bbb-zzlqk   1/1     Running   0          50s
 
 controlplane ~ ➜  kubectl get deployemnts
-^[[A^[[Aerror: the server doesn't have a resource type "deployemnts"
+error: the server doesn't have a resource type "deployemnts"
 
 controlplane ~ ✖ kubectl get deployments
 NAME       READY   UP-TO-DATE   AVAILABLE   AGE
